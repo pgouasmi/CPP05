@@ -16,7 +16,8 @@
 #pragma once
 
 #include <string>
-#include "Bureaucrat.hpp"
+
+class Bureaucrat;
 
 class Form
 {

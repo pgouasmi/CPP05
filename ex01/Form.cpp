@@ -11,8 +11,9 @@
 /* ************************************************************************** */
 
 #include "Form.hpp"
+#include "Bureaucrat.hpp"
 
-Form::Form(const std::string &name, int gradeToSign, int gradeToExecute) : _name(name), _gradeToSign(gradeToSign), _gradeToExecute(gradeToExecute)
+Form::Form(const std::string &name, int gradeToSign, int gradeToExecute) : _name(name), _signed(false), _gradeToSign(gradeToSign), _gradeToExecute(gradeToExecute)
 {
 	if (gradeToSign > 150 || gradeToExecute > 150)
 		throw GradeTooLowException();
@@ -27,6 +28,7 @@ Form::Form(const Form &obj) : _name(obj._name), _signed(obj._signed), _gradeToSi
 
 Form &Form::operator=(const Form &obj)
 {
+	(void)obj;
 	return *this;
 }
 

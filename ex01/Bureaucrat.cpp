@@ -106,7 +106,7 @@ void	Bureaucrat::signForm(Form& obj)
 	try
 	{
 		if (this->_grade > obj.getToSign())
-			throw GradeTooLowException();
+			throw SignGradeTooLow(obj.getName(), this->getName());
 		else if (obj.getStatus())
 			throw AlreadySigned();
 		else
@@ -153,4 +153,15 @@ Bureaucrat::AlreadySigned::AlreadySigned() throw ()
 const char *Bureaucrat::AlreadySigned::what() const throw ()
 {
 	return this->message.c_str();
+}
+
+
+Bureaucrat::SignGradeTooLow::SignGradeTooLow(std::string Form, std::string Bureaucrat) throw () : _bureaucrat(Bureaucrat), _form(Form)
+{
+}
+
+const char *Bureaucrat::SignGradeTooLow::what() const throw ()
+{
+	static std::string message = this->_bureaucrat + std::string(" couldn't sign ") + this->_form + " because its grade is too low";
+	return (message.c_str());
 }

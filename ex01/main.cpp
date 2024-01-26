@@ -20,6 +20,7 @@ int main()
 	Bureaucrat *A = new Bureaucrat(s, 4);
 	Bureaucrat *B = new Bureaucrat(s, 56);
 	Form *C = NULL;
+	Form *D = NULL;
 //	Form *C;
 
 	std::cout << *A << std::endl;
@@ -28,7 +29,7 @@ int main()
 
 	try
 	{
-		C = new Form(std::string("2B"), 200, 60);
+		C = new Form(std::string("2B"), 20, 60);
 		std::cout << *C << std::endl;
 	}
 	catch (std::exception &e)
@@ -40,11 +41,27 @@ int main()
 		return 1;
 	}
 
+	try
+	{
+		D = new Form("2A", 10, 60);
+		B->signForm(*D);
+	}
+	catch (std::exception &e)
+	{
+		std::cout << e.what() << std::endl;
+		delete A;
+		delete B;
+		delete C;
+		delete D;
+		return 1;
+	}
+
 //	C->beSigned(*B);
 //	C->beSigned(*A);
 
 	delete A;
 	delete B;
 	delete C;
+	delete D;
 	return 0;
 }

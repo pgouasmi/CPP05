@@ -75,6 +75,18 @@ private:
 		virtual ~AlreadySigned() throw() {};
 		virtual const char *what() const throw();
 	};
+
+	class SignGradeTooLow : public std::exception
+	{
+	private:
+		std::string _bureaucrat;
+		std::string _form;
+		SignGradeTooLow();
+	public:
+		SignGradeTooLow(std::string Form, std::string Bureaucrat) throw();
+		virtual ~SignGradeTooLow() throw() {};
+		virtual const char *what() const throw();
+	};
 };
 
 std::ostream&   operator<<(std::ostream &os,  Bureaucrat &obj);
