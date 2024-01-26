@@ -101,7 +101,22 @@ void Bureaucrat::decrementGrade()
 	}
 }
 
-
+void	Bureaucrat::signForm(Form& obj)
+{
+	try
+	{
+		if (this->_grade > obj.getToSign())
+			throw GradeTooLowException();
+		else if (obj.getStatus())
+			throw AlreadySigned();
+		else
+			obj.beSigned(*this);
+	}
+	catch (std::exception &e)
+	{
+		std::cout << e.what() << std::endl;
+	}
+}
 
 
 
@@ -124,6 +139,18 @@ Bureaucrat::GradeTooLowException::GradeTooLowException() throw ()
 }
 
 const char *Bureaucrat::GradeTooLowException::what() const throw ()
+{
+	return this->message.c_str();
+}
+
+
+
+Bureaucrat::AlreadySigned::AlreadySigned() throw ()
+{
+	this->message = "Error. The form has already been signed";
+}
+
+const char *Bureaucrat::AlreadySigned::what() const throw ()
 {
 	return this->message.c_str();
 }

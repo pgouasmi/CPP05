@@ -6,36 +6,26 @@
 /*   By: pgouasmi <pgouasmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 16:48:19 by pgouasmi          #+#    #+#             */
-/*   Updated: 2024/01/23 14:31:27 by pgouasmi         ###   ########.fr       */
+/*   Updated: 2024/01/26 12:53:27 by pgouasmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Bureaucrat.hpp"
+#include "AForm.hpp"
 
-Bureaucrat::Bureaucrat(std::string &name, int grade) : _name(name)
+Bureaucrat::Bureaucrat(std::string name, int grade) : _name(name)
 {
 	try
 	{
-		if (grade < 1)
-		{
-			throw GradeTooHighException();
-		}
-		else if (grade > 150)
-		{
+		this->_grade = grade;
+		if (this->_grade < 1)
 			throw GradeTooLowException();
-		}
-		else
-			this->_grade = grade;
+		else if (this->_grade > 150)
+			throw GradeTooLowException();
 	}
-	catch(const GradeTooHighException& e)
+	catch(const std::exception& e)
 	{
-		std::cout << e.what() << '\n';
-		this->_grade = 150;
-	}
-	catch(const GradeTooLowException& e)
-	{
-		std::cout << e.what() << '\n';
-		this->_grade = 150;
+		std::cerr << e.what() << '\n';
 	}
 }
 
@@ -55,13 +45,14 @@ Bureaucrat::~Bureaucrat()
 
 }
 
+
 std::ostream	&operator<<(std::ostream &os,  Bureaucrat &obj)
 {
 	os << obj.getName() << ", Bureaucrat grade " << obj.getGrade() << ".";
 	return os;
 }
 
-const std::string	&Bureaucrat::getName()
+const std::string	&Bureaucrat::getName() const
 {
 	return this->_name;
 }
@@ -97,12 +88,17 @@ void Bureaucrat::decrementGrade()
 	}
 	catch(const std::exception& e)
 	{
-		std::cerr << e.what() << '\n';
+		std::cerr << e.what() << std::endl;
 	}
 }
 
-
-
+void	Bureaucrat::signForm(AForm &obj) const
+{
+	if (obj.getStatus() == 0)
+		std::cout << this->getName() << " couldn't sign " << obj.getName() << " because this bureaucrat's Grade is too low" << std::endl;
+	else
+		std::cout << this->getName() << " signed " << obj.getName() << std::endl;
+}
 
 
 Bureaucrat::GradeTooHighException::GradeTooHighException() throw ()
@@ -115,9 +111,6 @@ const char *Bureaucrat::GradeTooHighException::what() const throw ()
 	return this->message.c_str();
 }
 
-
-
-
 Bureaucrat::GradeTooLowException::GradeTooLowException() throw ()
 {
 	this->message = "Error. Grade is too Low";
@@ -127,3 +120,21 @@ const char *Bureaucrat::GradeTooLowException::what() const throw ()
 {
 	return this->message.c_str();
 }
+
+void	Bureaucrat::executeForm(AForm const &form)
+{
+	try
+	{
+		if (this->_grade > ((AForm &)form).getToExecute())
+			throw GradeTooLowException();
+		else if (((AForm &)form).getStatus() == 0)
+			std::cout << "The form has not been signed beforehand, can not execute it" << std::endl;
+	}
+	catch(const std::exception& e)
+	{
+		std::cerr << "Execution :" << e.what() << '\n';
+	}
+
+}
+
+

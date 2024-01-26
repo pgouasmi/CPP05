@@ -1,36 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.cpp                                           :+:      :+:    :+:   */
+/*   Intern.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pgouasmi <pgouasmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/19 16:58:37 by pgouasmi          #+#    #+#             */
-/*   Updated: 2024/01/22 15:29:25 by pgouasmi         ###   ########.fr       */
+/*   Created: 2024/01/26 14:12:01 by pgouasmi          #+#    #+#             */
+/*   Updated: 2024/01/26 14:23:38 by pgouasmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Bureaucrat.hpp"
+#include "Intern.hpp"
 
-int main()
+Intern::Intern()
 {
-	std::string s = "Gertrude";
 
-	Bureaucrat *A = new Bureaucrat(s, 4);
-	Bureaucrat *B = new Bureaucrat(s, 151);
+}
 
-	std::cout << *A << std::endl;
-	std::cout << *B << std::endl;
+Intern::Intern(const Intern &obj)
+{
+	*this = obj;
+}
 
-	*B = *A;
+Intern &Intern::operator=(const Intern &obj)
+{
+	(void)obj;
+	return *this;
+}
 
-	std::cout << *B << std::endl;
+Intern::~Intern()
+{
 
-	Bureaucrat *C = new Bureaucrat(s, 150);
-	C->decrementGrade();
+}
 
-	delete A;
-	delete B;
-	delete C;
-	return 0;
+AForm *Intern::makeForm(std::string &name, std::string &target)
+{
+
 }

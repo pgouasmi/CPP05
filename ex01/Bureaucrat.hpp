@@ -19,6 +19,7 @@
 #include <stdexcept>
 #include <iostream>
 #include <ostream>
+#include "Form.hpp"
 
 class Bureaucrat
 {
@@ -33,7 +34,7 @@ public:
     void        incrementGrade();
     void        decrementGrade();
 
-    void        signForm();
+    void        signForm(Form &obj);
 
 private:
     const std::string _name;
@@ -64,6 +65,16 @@ private:
         virtual ~GradeTooLowException() throw() {};
         virtual const char *what() const throw();
     };
+
+	class AlreadySigned : public std::exception
+	{
+	private:
+		std::string message;
+	public:
+		AlreadySigned() throw();
+		virtual ~AlreadySigned() throw() {};
+		virtual const char *what() const throw();
+	};
 };
 
 std::ostream&   operator<<(std::ostream &os,  Bureaucrat &obj);

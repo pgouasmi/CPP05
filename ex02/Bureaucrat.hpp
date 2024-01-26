@@ -6,7 +6,7 @@
 /*   By: pgouasmi <pgouasmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 16:48:23 by pgouasmi          #+#    #+#             */
-/*   Updated: 2024/01/23 14:24:51 by pgouasmi         ###   ########.fr       */
+/*   Updated: 2024/01/25 15:32:32 by pgouasmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,20 +20,24 @@
 #include <iostream>
 #include <ostream>
 
+class AForm;
+
 class Bureaucrat
 {
 public:
-    Bureaucrat(std::string &name, int grade);
+    Bureaucrat(std::string name, int grade);
     Bureaucrat(Bureaucrat const &obj);
     Bureaucrat &operator=(Bureaucrat const &obj);
     ~Bureaucrat();
 
-    const std::string &getName() ;
+    void    signForm(AForm &obj) const;
+
+    const std::string &getName() const;
     int         getGrade() const;
     void        incrementGrade();
     void        decrementGrade();
 
-    void        signForm();
+    void        executeForm(AForm const &form);
 
 private:
     const std::string _name;
