@@ -12,6 +12,8 @@
 
 #include "Form.hpp"
 
+Form::Form() : _name("Default"), _signed(0), _gradeToSign(1), _gradeToExecute(1) {}
+
 Form::Form(const std::string &name, int gradeToSign, int gradeToExecute) : _name(name), _gradeToSign(gradeToSign), _gradeToExecute(gradeToExecute)
 {
 	if (gradeToSign > 150 || gradeToExecute > 150)
@@ -27,6 +29,7 @@ Form::Form(const Form &obj) : _name(obj._name), _signed(obj._signed), _gradeToSi
 
 Form &Form::operator=(const Form &obj)
 {
+	(void) obj;
 	return *this;
 }
 
@@ -56,21 +59,9 @@ int	Form::getToExecute()
 	return this->_gradeToExecute;
 }
 
-// void	Form::beSigned(Bureaucrat &obj)
-// {
-// 	if (this->getStatus() == 1)
-// 	{
-// 		std::cerr << "Form " << this->getName() << " has already been signed" << std::endl;
-// 		return ;
-// 	}
-// 	if (obj.getGrade() <= this->getToSign())
-// 		this->_signed = 1;
-// 	obj.signForm(*this);
-// }
-
-
 void	Form::beSigned(Bureaucrat &obj)
 {
+	this->_signed = true;
 	std::cout << obj.getName() << " signed " << this->_name << std::endl;
 }
 

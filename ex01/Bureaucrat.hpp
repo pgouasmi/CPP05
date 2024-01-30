@@ -19,60 +19,69 @@
 #include <stdexcept>
 #include <iostream>
 #include <ostream>
+
 #include "Form.hpp"
 
-class Bureaucrat
-{
+class Form;
+
+class Bureaucrat {
 public:
-    Bureaucrat(std::string &name, int grade);
-    Bureaucrat(Bureaucrat const &obj);
-    Bureaucrat &operator=(Bureaucrat const &obj);
-    ~Bureaucrat();
+	Bureaucrat();
 
-    const std::string &getName() ;
-    int         getGrade() const;
-    void        incrementGrade();
-    void        decrementGrade();
+	Bureaucrat(std::string &name, int grade);
 
-    void        signForm(Form &obj);
+	Bureaucrat(Bureaucrat const &obj);
+
+	Bureaucrat &operator=(Bureaucrat const &obj);
+
+	~Bureaucrat();
+
+	const std::string &getName();
+
+	int getGrade() const;
+
+	void incrementGrade();
+
+	void decrementGrade();
+
+	void signForm(Form &obj);
 
 private:
-    const std::string _name;
-    int         _grade;
+	const std::string _name;
+	int _grade;
 
 
+	class GradeTooHighException : public std::exception {
+	private:
+		std::string message;
+	public:
+		GradeTooHighException() throw();
+
+		virtual ~GradeTooHighException() throw() {};
+
+		virtual const char *what() const throw();
+	};
 
 
-    class GradeTooHighException : public std::exception
-    {
-    private:
-        std::string message;
-    public:
-        GradeTooHighException() throw();
-        virtual ~GradeTooHighException() throw() {};
-        virtual const char* what() const throw();
-    };
+	class GradeTooLowException : public std::exception {
+	private:
+		std::string message;
+	public:
+		GradeTooLowException() throw();
 
+		virtual ~GradeTooLowException() throw() {};
 
+		virtual const char *what() const throw();
+	};
 
-
-    class GradeTooLowException : public std::exception
-    {
-    private:
-        std::string message;
-    public:
-        GradeTooLowException() throw();
-        virtual ~GradeTooLowException() throw() {};
-        virtual const char *what() const throw();
-    };
-
-	class AlreadySigned : public std::exception
-	{
+	class AlreadySigned : public std::exception {
 	private:
 		std::string message;
 	public:
 		AlreadySigned() throw();
-		virtual ~AlreadySigned() throw() {};
+
+		virtual ~AlreadySigned() throw() {}
+
 		virtual const char *what() const throw();
 	};
 };

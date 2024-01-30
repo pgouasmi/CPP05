@@ -5,34 +5,35 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: pgouasmi <pgouasmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/23 16:43:34 by pgouasmi          #+#    #+#             */
-/*   Updated: 2024/01/25 13:54:38 by pgouasmi         ###   ########.fr       */
+/*   Created: 2024/01/22 15:34:04 by pgouasmi          #+#    #+#             */
+/*   Updated: 2024/01/23 14:51:02 by pgouasmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef AFORM_HPP
-#define AFORM_HPP
+#ifndef AFORM_H
+#define AFORM_H
 
 #pragma once
 
 #include <string>
 #include "Bureaucrat.hpp"
 
+class Bureaucrat;
+
 class AForm
 {
 public:
-    AForm();
-    AForm(std::string name, int gradeToSign, int gradeToExecute);
+	AForm();
+    AForm(const std::string &name, int gradeToSign, int gradeToExecute);
     AForm(const AForm &obj);
     AForm &operator=(const AForm &obj);
-    virtual ~AForm() = 0;
+    ~AForm();
 
-    std::string getName();
-    bool        getStatus();
-    int         getToSign();
-    int         getToExecute();
+    std::string getName() const;
+    bool        getStatus() const;
+    int         getToSign() const;
+    int         getToExecute() const;
     void        beSigned(Bureaucrat &obj);
-    virtual void    execute(Bureaucrat const &executor) const = 0;
 
 private:
     const std::string _name;

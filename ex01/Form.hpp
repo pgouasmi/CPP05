@@ -18,9 +18,12 @@
 #include <string>
 #include "Bureaucrat.hpp"
 
+class Bureaucrat;
+
 class Form
 {
 public:
+	Form();
     Form(const std::string &name, int gradeToSign, int gradeToExecute);
     Form(const Form &obj);
     Form &operator=(const Form &obj);
@@ -61,6 +64,6 @@ private:
 
 };
 
-std::ostream&   operator<<(std::ostream &os,  Form &obj);
+std::ostream&   operator<<(std::ostream &os, Form &obj);
 
 #endif

@@ -15,9 +15,11 @@
 int main()
 {
 	std::string s = "Gertrude";
+	Bureaucrat *A = NULL;
+	Bureaucrat *B = NULL;
 
-	Bureaucrat *A = new Bureaucrat(s, 4);
-	Bureaucrat *B = new Bureaucrat(s, 151);
+	A = new Bureaucrat(s, 4);
+	B = new Bureaucrat(s, 151);
 
 	std::cout << *A << std::endl;
 	std::cout << *B << std::endl;

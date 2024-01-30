@@ -18,9 +18,9 @@
 
 int main()
 {
-	std::string s = "Gertrude";
+	std::string s = "Anne";
 
-	Bureaucrat *B = new Bureaucrat(std::string("Anne"), 1);
+	Bureaucrat *B = new Bureaucrat(s, 1);
 
 	ShrubberyCreationForm *A = new ShrubberyCreationForm();
 
@@ -54,8 +54,9 @@ int main()
 	// C->beSigned(*B);
 	// C->beSigned(*A);
 
-	// delete A;
-	// delete B;
-	// delete C;
-	// return 0;
+	 delete A;
+	 delete B;
+	 delete P;
+	delete R;
+	 return 0;
 }
