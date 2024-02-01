@@ -25,6 +25,10 @@
 class AForm;
 
 class Bureaucrat {
+private:
+	const std::string _name;
+	int _grade;
+
 public:
 	Bureaucrat();
 	Bureaucrat(std::string &name, int grade);
@@ -38,11 +42,7 @@ public:
 	void incrementGrade();
 	void decrementGrade();
 	void signForm(AForm &obj);
-
-private:
-	const std::string _name;
-	int _grade;
-
+	void executeForm(AForm const &form);
 
 	class GradeTooHighException : public std::exception {
 	private:
@@ -63,14 +63,25 @@ private:
 		virtual const char *what() const throw();
 	};
 
-	class AlreadySigned : public std::exception {
+
+	class AlreadySignedException : public std::exception {
 	private:
 		std::string message;
 	public:
-		AlreadySigned() throw();
-		virtual ~AlreadySigned() throw() {}
+		AlreadySignedException() throw();
+		virtual ~AlreadySignedException() throw() {}
 		virtual const char *what() const throw();
 	};
+
+	class NotSignedException : public std::exception {
+	private:
+		std::string message;
+	public:
+		NotSignedException() throw();
+		virtual ~NotSignedException() throw() {}
+		virtual const char *what() const throw();
+	};
+
 };
 
 std::ostream&   operator<<(std::ostream &os,  Bureaucrat &obj);

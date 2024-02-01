@@ -12,12 +12,12 @@
 
 #include "ShrubberyCreationForm.hpp"
 
-ShrubberyCreationForm::ShrubberyCreationForm() :  _signed(0), _gradeToSign(145), _gradeToExecute(137), _target("default")
+ShrubberyCreationForm::ShrubberyCreationForm() :  AForm("default", 145, 137), _target("default")//_signed(false), _gradeToSign(145), _gradeToExecute(137), _target("default")
 {
 
 }
 
-ShrubberyCreationForm::ShrubberyCreationForm(const std::string &target) : _signed(0), _gradeToSign(145), _gradeToExecute(137), _target(target)
+ShrubberyCreationForm::ShrubberyCreationForm(const std::string &target) : AForm("default", 145, 137), _target(target)
 {
 
 }
@@ -42,13 +42,11 @@ void    ShrubberyCreationForm::execute(Bureaucrat const &executor) const
 {
 	if (executor.getGrade() > this->_gradeToExecute)
 	{
-		std::cout << "Executor " << executor.getName() << "'s grade is not high enough to execute the form " << ((AForm *)this)->getName() << std::endl;
-		return ;
+		throw GradeTooLowException();
 	}
 	else if (((AForm *)this)->getStatus() == 0)
 	{
-		std::cout << "The form " << ((AForm *)this)->getName() << " has not been signed beforehand. Executor " << executor.getName() << " can not execute it." << std::endl;
-		return ;
+		throw NotSignedException();
 	}
 	std::ofstream ofs;
 	ofs.open((executor.getName() + std::string("_shrubberry")).c_str(), std::ofstream::out | std::ofstream::trunc);

@@ -12,7 +12,7 @@
 
 #include "PresidentialPardonForm.hpp"
 
-PresidentialPardonForm::PresidentialPardonForm() : AForm("Default", 145, 137), _target("default")
+PresidentialPardonForm::PresidentialPardonForm() : AForm("Default", 25, 5), _target("default")
 {
 }
 

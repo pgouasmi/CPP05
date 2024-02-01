@@ -19,44 +19,66 @@
 int main()
 {
 	std::string s = "Anne";
+	Bureaucrat *B = NULL;
+	AForm *S = NULL;
+//	AForm *P = NULL;
+//	AForm *R = NULL;
 
-	Bureaucrat *B = new Bureaucrat(s, 1);
+	try {
+		B = new Bureaucrat(s, 150);
+	}
+	catch (std::exception &e)
+	{
+		std::cout << e.what() << std::endl;
+		return 0;
+	}
 
-	ShrubberyCreationForm *A = new ShrubberyCreationForm();
+	S = new ShrubberyCreationForm();
 
-	A->beSigned(*B);
-	A->execute(*B);
+	std::cout << *S << std::endl;
+	B->signForm(*S);
+	B->executeForm(*S);
 
-	PresidentialPardonForm *P = new PresidentialPardonForm();
+	delete B;
+	delete S;
 
-	P->beSigned(*B);
-	P->execute(*B);
-
-	RobotomyRequestForm *R = new RobotomyRequestForm();
-
-	R->beSigned(*B);
-	R->execute(*B);
-
-
-
-
-	// Bureaucrat *A = new Bureaucrat(s, 4);
-	// Bureaucrat *B = new Bureaucrat(std::string("Anne"), 56);
-
-	// std::cout << *A << std::endl;
-	// std::cout << *B << std::endl;
-	// std::cout << std::endl;
-
-	// Form *C = new Form(std::string("2B"), 20, 60);
-
-	// std::cout << *C << std::endl;
-
-	// C->beSigned(*B);
-	// C->beSigned(*A);
-
-	 delete A;
-	 delete B;
-	 delete P;
-	delete R;
-	 return 0;
+//	ShrubberyCreationForm *A = new ShrubberyCreationForm();
+//
+//	B->signForm(*A);
+//	B->executeForm(*A);
+//
+//	std::cout << std::endl;
+//
+//	PresidentialPardonForm *P = new PresidentialPardonForm();
+////
+//	B->signForm(*P);
+//	B->executeForm(*P);
+////
+////	RobotomyRequestForm *R = new RobotomyRequestForm();
+////
+////	R->beSigned(*B);
+////	R->execute(*B);
+//
+//
+//
+//
+//		// Bureaucrat *A = new Bureaucrat(s, 4);
+//		// Bureaucrat *B = new Bureaucrat(std::string("Anne"), 56);
+//
+//		// std::cout << *A << std::endl;
+//		// std::cout << *B << std::endl;
+//		// std::cout << std::endl;
+//
+//		// Form *C = new Form(std::string("2B"), 20, 60);
+//
+//		// std::cout << *C << std::endl;
+//
+//		// C->beSigned(*B);
+//		// C->beSigned(*A);
+//
+//		delete A;
+//		delete B;
+//		delete P;
+////		delete R;
+//		return 0;
 }

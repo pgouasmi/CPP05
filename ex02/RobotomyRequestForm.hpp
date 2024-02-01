@@ -25,7 +25,7 @@ public:
     RobotomyRequestForm(const std::string &name);
     RobotomyRequestForm(const RobotomyRequestForm &obj);
     RobotomyRequestForm &operator=(const RobotomyRequestForm &obj);
-    ~RobotomyRequestForm();
+    virtual ~RobotomyRequestForm();
 
     void    execute(Bureaucrat const &executor) const;
 

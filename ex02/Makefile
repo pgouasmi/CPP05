@@ -20,7 +20,7 @@ _END = \033[0m
 _BOLD = \033[1m
 
 NAME = Forms!
-CFLAGS = -Wall -Wextra -std=c++98
+CFLAGS = -Wall -Wextra -Werror -std=c++98 -ggdb3
 RM = @rm -rf
 CC = @c++
 DIR = @mkdir -p

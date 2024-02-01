@@ -78,18 +78,37 @@ void Bureaucrat::decrementGrade()
 
 void	Bureaucrat::signForm(AForm &obj)
 {
-	if (obj.getStatus() == true)
-	{
-		std::cout << this->_name << " couldn't sign " << obj.getName() << " because " << std::flush;
-		throw AlreadySigned();
-	}
-	else if (this->_grade > obj.getToSign())
-	{
-		std::cout << this->_name << " couldn't sign " << obj.getName() << " because " << std::flush;
-		throw GradeTooLowException();
-	}
-	else
+	try {
 		obj.beSigned(*this);
+	}
+	catch (std::exception &e)
+	{
+		std::cout << this->_name << " could not sign Form " << obj.getName() << " because: " << e.what() << std::endl;
+	}
+//	if (obj.getStatus() == true)
+//	{
+//		std::cout << this->_name << " couldn't sign " << obj.getName() << " because " << std::flush;
+//		throw AlreadySignedException();
+//	}
+//	else if (this->_grade > obj.getToSign())
+//	{
+//		std::cout << this->_name << " couldn't sign " << obj.getName() << " because " << std::flush;
+//		throw GradeTooLowException();
+//	}
+//	else
+//		obj.beSigned(*this);
+}
+
+void	Bureaucrat::executeForm(const AForm &form)
+{
+	try
+	{
+		form.execute(*this);
+	}
+	catch (std::exception &e)
+	{
+		std::cout << this->_name << " could not execute the form " << form.getName() << " because " << e.what() << std::endl;
+	}
 }
 
 
@@ -118,12 +137,25 @@ const char *Bureaucrat::GradeTooLowException::what() const throw ()
 }
 
 
-Bureaucrat::AlreadySigned::AlreadySigned() throw ()
+
+Bureaucrat::AlreadySignedException::AlreadySignedException() throw ()
 {
 	this->message = "Form is already signed";
 }
 
-const char *Bureaucrat::AlreadySigned::what() const throw ()
+
+const char *Bureaucrat::AlreadySignedException::what() const throw ()
+{
+	return this->message.c_str();
+}
+
+Bureaucrat::NotSignedException::NotSignedException() throw ()
+{
+	this->message = "Form is not signed";
+}
+
+
+const char *Bureaucrat::NotSignedException::what() const throw ()
 {
 	return this->message.c_str();
 }

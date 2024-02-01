@@ -12,9 +12,9 @@
 
 #include "AForm.hpp"
 
-AForm::AForm() : _name("Default"), _signed(0), _gradeToSign(1), _gradeToExecute(1) {}
+AForm::AForm() : _name("Default"), _signed(false), _gradeToSign(1), _gradeToExecute(1) {}
 
-AForm::AForm(const std::string &name, int gradeToSign, int gradeToExecute) : _name(name), _gradeToSign(gradeToSign), _gradeToExecute(gradeToExecute)
+AForm::AForm(const std::string &name, int gradeToSign, int gradeToExecute) : _name(name), _signed(false), _gradeToSign(gradeToSign), _gradeToExecute(gradeToExecute)
 {
 	if (gradeToSign > 150 || gradeToExecute > 150)
 		throw GradeTooLowException();
@@ -61,8 +61,12 @@ int	AForm::getToExecute() const
 
 void	AForm::beSigned(Bureaucrat &obj)
 {
+	if (this->_signed)
+		throw AlreadySignedException();
+	if (obj.getGrade() > this->getToSign())
+		throw GradeTooLowException();
 	this->_signed = true;
-	std::cout << obj.getName() << " signed " << this->_name << std::endl;
+	std::cout << obj.getName() << " signed form " << this->_name << std::endl;
 }
 
 AForm::GradeTooHighException::GradeTooHighException() throw()
@@ -84,6 +88,27 @@ const char *AForm::GradeTooLowException::what() const throw ()
 {
 	return this->message.c_str();
 }
+
+AForm::NotSignedException::NotSignedException() throw ()
+{
+	this->message = "Form has not been signed";
+}
+
+const char *AForm::NotSignedException::what() const throw ()
+{
+	return this->message.c_str();
+}
+
+AForm::AlreadySignedException::AlreadySignedException() throw ()
+{
+	this->message = "Form has already been signed";
+}
+
+const char *AForm::AlreadySignedException::what() const throw ()
+{
+	return this->message.c_str();
+}
+
 
 std::ostream &operator<<(std::ostream &os, AForm &obj)
 {
