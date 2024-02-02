@@ -19,6 +19,12 @@ int main()
 
 	Bureaucrat *A = new Bureaucrat(s, 4);
 	Bureaucrat *B = new Bureaucrat(s, 56);
+<<<<<<< HEAD
+=======
+	Form *C = NULL;
+	Form *D = NULL;
+//	Form *C;
+>>>>>>> b297467abfae01bf139af07d50a081b9c7467355
 
 	std::cout << *A << std::endl;
 	std::cout << *B << std::endl;
@@ -26,18 +32,48 @@ int main()
 
 	try
 	{
+<<<<<<< HEAD
 		Form C(std::string("2B"), 20, 60);
 		std::cout << C << std::endl;
 		A->signForm(C);
 		A->signForm(C);
+=======
+		C = new Form(std::string("2B"), 20, 60);
+		std::cout << *C << std::endl;
+>>>>>>> b297467abfae01bf139af07d50a081b9c7467355
 	}
 	catch (std::exception &e)
 	{
 		std::cout << e.what() << std::endl;
 	}
 
+<<<<<<< HEAD
 
 	delete A;
 	delete B;
+=======
+	try
+	{
+		D = new Form("2A", 10, 60);
+		B->signForm(*D);
+	}
+	catch (std::exception &e)
+	{
+		std::cout << e.what() << std::endl;
+		delete A;
+		delete B;
+		delete C;
+		delete D;
+		return 1;
+	}
+
+//	C->beSigned(*B);
+//	C->beSigned(*A);
+
+	delete A;
+	delete B;
+	delete C;
+	delete D;
+>>>>>>> b297467abfae01bf139af07d50a081b9c7467355
 	return 0;
 }
