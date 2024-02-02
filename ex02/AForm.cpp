@@ -59,6 +59,11 @@ int	AForm::getToExecute() const
 	return this->_gradeToExecute;
 }
 
+void	AForm::setStatus(bool value)
+{
+	this->_signed = value;
+}
+
 void	AForm::beSigned(Bureaucrat &obj)
 {
 	if (this->_signed)
@@ -71,7 +76,7 @@ void	AForm::beSigned(Bureaucrat &obj)
 
 AForm::GradeTooHighException::GradeTooHighException() throw()
 {
-	this->message = "AForm exception : grade is too High";
+	this->message = "grade is too High";
 }
 
 const char *AForm::GradeTooHighException::what() const throw ()
@@ -81,7 +86,7 @@ const char *AForm::GradeTooHighException::what() const throw ()
 
 AForm::GradeTooLowException::GradeTooLowException() throw ()
 {
-	this->message = "AForm exception : Grade is too Low";
+	this->message = "Grade is too Low";
 }
 
 const char *AForm::GradeTooLowException::what() const throw ()

@@ -37,7 +37,7 @@ private:
 //    bool              _signed;
 //    const int         _gradeToSign;
 //    const int         _gradeToExecute;
-    const std::string _target;
+	std::string _target;
 
     // std::string getName();
     // bool        getStatus();

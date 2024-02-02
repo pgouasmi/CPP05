@@ -12,7 +12,7 @@
 
 #include "ShrubberyCreationForm.hpp"
 
-ShrubberyCreationForm::ShrubberyCreationForm() :  AForm("default", 145, 137), _target("default")//_signed(false), _gradeToSign(145), _gradeToExecute(137), _target("default")
+ShrubberyCreationForm::ShrubberyCreationForm() :  AForm("default", 145, 137), _target("default")
 {
 
 }
@@ -22,14 +22,16 @@ ShrubberyCreationForm::ShrubberyCreationForm(const std::string &target) : AForm(
 
 }
 
-ShrubberyCreationForm::ShrubberyCreationForm(const ShrubberyCreationForm &obj) : _signed(obj._signed), _gradeToSign(obj._gradeToSign), _gradeToExecute(obj._gradeToExecute), _target(obj._target)
+ShrubberyCreationForm::ShrubberyCreationForm(const ShrubberyCreationForm &obj) : AForm(obj), _target(obj._target)//_signed(obj._signed), _gradeToSign(obj._gradeToSign), _gradeToExecute(obj._gradeToExecute), _target(obj._target)
 {
-	*this = obj;
+	(void) obj;
+//	*this = obj;
 }
 
 ShrubberyCreationForm &ShrubberyCreationForm::operator=(const ShrubberyCreationForm &obj)
 {
-	this->_signed = obj._signed;
+	this->setStatus(obj.getStatus());
+	this->_target = obj._target;
 	return *this;
 }
 
@@ -40,14 +42,15 @@ ShrubberyCreationForm::~ShrubberyCreationForm()
 
 void    ShrubberyCreationForm::execute(Bureaucrat const &executor) const
 {
-	if (executor.getGrade() > this->_gradeToExecute)
+	if (executor.getGrade() > this->getToExecute())
 	{
 		throw GradeTooLowException();
 	}
-	else if (((AForm *)this)->getStatus() == 0)
+	else if (this->getStatus() == 0)
 	{
 		throw NotSignedException();
 	}
+	std::cout << executor.getName() << " executed ShrubberyCreationForm " << this->getName() << std::endl;
 	std::ofstream ofs;
 	ofs.open((executor.getName() + std::string("_shrubberry")).c_str(), std::ofstream::out | std::ofstream::trunc);
 	ofs <<

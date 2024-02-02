@@ -40,6 +40,7 @@ public:
     bool        getStatus() const;
     int         getToSign() const;
     int         getToExecute() const;
+	void		setStatus(bool value);
     void        beSigned(Bureaucrat &obj);
 	virtual void		execute(Bureaucrat const &executor) const = 0;
 
