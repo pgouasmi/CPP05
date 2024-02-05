@@ -52,7 +52,7 @@ void    ShrubberyCreationForm::execute(Bureaucrat const &executor) const
 	}
 	std::cout << executor.getName() << " executed ShrubberyCreationForm " << this->getName() << std::endl;
 	std::ofstream ofs;
-	ofs.open((executor.getName() + std::string("_shrubberry")).c_str(), std::ofstream::out | std::ofstream::trunc);
+	ofs.open((this->_target + std::string("_shrubberry")).c_str(), std::ofstream::out | std::ofstream::trunc);
 	ofs <<
 	"    oxoxoo    ooxoo\n"
 "  ooxoxo oo  oxoxooo\n"

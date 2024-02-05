@@ -20,7 +20,7 @@
 int main()
 {
 	std::string s = "Anne";
-	std::string type = "shrubbery creation";
+	std::string type = "robotomy request";
 	std::string target = "bruh";
 	AForm *S = NULL;
 
@@ -37,7 +37,7 @@ int main()
 		return 1;
 
 	}
-	Bureaucrat *B = new Bureaucrat(s, 100);
+	Bureaucrat *B = new Bureaucrat(s, 1);
 
 	if (S) {
 		B->signForm(*S);

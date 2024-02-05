@@ -13,8 +13,6 @@
 #ifndef AFORM_H
 #define AFORM_H
 
-#pragma once
-
 #include <string>
 #include "Bureaucrat.hpp"
 

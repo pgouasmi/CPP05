@@ -17,9 +17,23 @@ int main()
 	std::string s = "Gertrude";
 	Bureaucrat *A = NULL;
 	Bureaucrat *B = NULL;
+	Bureaucrat *C = NULL;
 
-	A = new Bureaucrat(s, 4);
-	B = new Bureaucrat(s, 151);
+	try {
+		A = new Bureaucrat(s, 4);
+	}
+	catch (std::exception &e)
+	{
+		std::cout << e.what() << std::endl;
+	}
+	try {
+		B = new Bureaucrat(s, 150);
+	}
+	catch (std::exception &e)
+	{
+		std::cout << e.what() << std::endl;
+	}
+
 
 	std::cout << *A << std::endl;
 	std::cout << *B << std::endl;
@@ -28,8 +42,14 @@ int main()
 
 	std::cout << *B << std::endl;
 
-	Bureaucrat *C = new Bureaucrat(s, 150);
-	C->decrementGrade();
+	try {
+		C = new Bureaucrat(s, 150);
+		C->decrementGrade();
+	}
+	catch (std::exception &e)
+	{
+		std::cout << e.what() << std::endl;
+	}
 
 	delete A;
 	delete B;

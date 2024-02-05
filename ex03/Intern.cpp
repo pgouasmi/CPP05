@@ -53,7 +53,10 @@ AForm *Intern::makeForm(std::string &name, std::string &target)
 		throw UnknownFormException();
 	}
 	else
-		return(this->*_FunctionArray[i])(target);
+	{
+		std::cout << "Intern successfully created a new Form" << std::endl;
+		return (this->*_FunctionArray[i])(target);
+	}
 }
 
 Intern::UnknownFormException::UnknownFormException() throw()

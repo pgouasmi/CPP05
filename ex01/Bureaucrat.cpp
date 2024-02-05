@@ -78,25 +78,10 @@ void Bureaucrat::decrementGrade()
 
 void	Bureaucrat::signForm(Form &obj)
 {
-	if (obj.getStatus() == true)
-	{
-<<<<<<< HEAD
-		std::cout << this->_name << " couldn't sign " << obj.getName() << " because " << std::flush;
-		throw AlreadySigned();
-=======
-		if (this->_grade > obj.getToSign())
-			throw SignGradeTooLow(obj.getName(), this->getName());
-		else if (obj.getStatus())
-			throw AlreadySigned();
-		else
-			obj.beSigned(*this);
->>>>>>> b297467abfae01bf139af07d50a081b9c7467355
-	}
-	else if (this->_grade > obj.getToSign())
-	{
-		std::cout << this->_name << " couldn't sign " << obj.getName() << " because " << std::flush;
+	if (this->_grade > obj.getToSign())
 		throw GradeTooLowException();
-	}
+	else if (obj.getStatus())
+		throw AlreadySigned();
 	else
 		obj.beSigned(*this);
 }
@@ -105,7 +90,7 @@ void	Bureaucrat::signForm(Form &obj)
 
 Bureaucrat::GradeTooHighException::GradeTooHighException() throw ()
 {
-	this->message = "Error. Grade is too High";
+	this->message = "Grade is too High";
 }
 
 const char *Bureaucrat::GradeTooHighException::what() const throw ()
@@ -118,7 +103,7 @@ const char *Bureaucrat::GradeTooHighException::what() const throw ()
 
 Bureaucrat::GradeTooLowException::GradeTooLowException() throw ()
 {
-	this->message = "Error. Grade is too Low";
+	this->message = "Grade is too Low";
 }
 
 const char *Bureaucrat::GradeTooLowException::what() const throw ()
@@ -137,13 +122,3 @@ const char *Bureaucrat::AlreadySigned::what() const throw ()
 	return this->message.c_str();
 }
 
-
-Bureaucrat::SignGradeTooLow::SignGradeTooLow(std::string Form, std::string Bureaucrat) throw () : _bureaucrat(Bureaucrat), _form(Form)
-{
-}
-
-const char *Bureaucrat::SignGradeTooLow::what() const throw ()
-{
-	static std::string message = this->_bureaucrat + std::string(" couldn't sign ") + this->_form + " because its grade is too low";
-	return (message.c_str());
-}
