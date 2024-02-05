@@ -16,9 +16,8 @@ PresidentialPardonForm::PresidentialPardonForm() : AForm("Default", 25, 5), _tar
 {
 }
 
-PresidentialPardonForm::PresidentialPardonForm(const std::string &target) : AForm("Default", 145, 137), _target(target)
+PresidentialPardonForm::PresidentialPardonForm(const std::string &target) : AForm("Default", 25, 5), _target(target)
 {
-
 }
 
 PresidentialPardonForm::PresidentialPardonForm(const PresidentialPardonForm &obj) : AForm(obj), _target(obj._target)
@@ -40,12 +39,11 @@ void    PresidentialPardonForm::execute(Bureaucrat const &executor) const
 {
 	if (executor.getGrade() > this->getToExecute())
 	{
-		std::cout << "Executor " << executor.getName() << "'s grade is not high enough to execute the form " << ((AForm *)this)->getName() << std::endl;
-		return ;
+		throw GradeTooLowException();
 	}
-	else if (((AForm *)this)->getStatus() == 0)
+	else if (this->getStatus() == 0)
 	{
-		std::cout << "The form " << ((AForm *)this)->getName() << " has not been signed beforehand. Executor " << executor.getName() << " can not execute it." << std::endl;
+		std::cout << "The form " << this->getName() << " has not been signed beforehand. Executor " << executor.getName() << " can not execute it." << std::endl;
 		return ;
 	}
 	std::cout << executor.getName() << " has been pardoned by Zaphod Beeblebrox." << std::endl;
