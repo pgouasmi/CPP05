@@ -12,24 +12,21 @@
 
 #include "PresidentialPardonForm.hpp"
 
-PresidentialPardonForm::PresidentialPardonForm() : _signed(0), _gradeToSign(25), _gradeToExecute(5), _target("default")
+PresidentialPardonForm::PresidentialPardonForm() : AForm("Default", 25, 5), _target("default")
 {
-
 }
 
-PresidentialPardonForm::PresidentialPardonForm(const std::string &target) : _signed(0), _gradeToSign(25), _gradeToExecute(5), _target(target)
+PresidentialPardonForm::PresidentialPardonForm(const std::string &target) : AForm("Default", 25, 5), _target(target)
 {
-
 }
 
-PresidentialPardonForm::PresidentialPardonForm(const PresidentialPardonForm &obj) : _signed(obj._signed), _gradeToSign(obj._gradeToSign), _gradeToExecute(obj._gradeToExecute), _target(obj._target)
+PresidentialPardonForm::PresidentialPardonForm(const PresidentialPardonForm &obj) : AForm(obj), _target(obj._target)
 {
-	*this = obj;
 }
 
 PresidentialPardonForm &PresidentialPardonForm::operator=(const PresidentialPardonForm &obj)
 {
-	this->_signed = obj._signed;
+	(void)obj;
 	return *this;
 }
 
@@ -40,16 +37,21 @@ PresidentialPardonForm::~PresidentialPardonForm()
 
 void    PresidentialPardonForm::execute(Bureaucrat const &executor) const
 {
-	if (executor.getGrade() > this->_gradeToExecute)
+	if (executor.getGrade() > this->getToExecute())
 	{
-		std::cout << "Executor " << executor.getName() << "'s grade is not high enough to execute the form " << ((AForm *)this)->getName() << std::endl;
-		return ;
+		throw GradeTooLowException();
 	}
-	else if (((AForm *)this)->getStatus() == 0)
+	else if (this->getStatus() == 0)
 	{
-		std::cout << "The form " << ((AForm *)this)->getName() << " has not been signed beforehand. Executor " << executor.getName() << " can not execute it." << std::endl;
+		std::cout << "The form " << this->getName() << " has not been signed beforehand. Executor " << executor.getName() << " can not execute it." << std::endl;
 		return ;
 	}
 	std::cout << executor.getName() << " has been pardoned by Zaphod Beeblebrox." << std::endl;
 }
 
+AForm *PresidentialPardonForm::spawnForm(const std::string &target)
+{
+	AForm *res = new PresidentialPardonForm(target);
+
+	return res;
+}

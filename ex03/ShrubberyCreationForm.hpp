@@ -26,26 +26,15 @@ public:
     ShrubberyCreationForm(const std::string &name);
     ShrubberyCreationForm(const ShrubberyCreationForm &obj);
     ShrubberyCreationForm &operator=(const ShrubberyCreationForm &obj);
-    ~ShrubberyCreationForm();
+    virtual~ShrubberyCreationForm();
 
     void    execute(Bureaucrat const &executor) const;
-    // void        beSigned(Bureaucrat &obj);
 
+	AForm	*spawnForm(const std::string &target);
 
 private:
-    const std::string _name;
-    bool              _signed;
-    const int         _gradeToSign;
-    const int         _gradeToExecute;
-    const std::string _target;
 
-    // std::string getName();
-    // bool        getStatus();
-    // int         getToSign();
-    // int         getToExecute();
-
-
-
+	std::string _target;
 };
 
 #endif

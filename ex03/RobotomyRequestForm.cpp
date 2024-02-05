@@ -12,24 +12,26 @@
 
 #include "RobotomyRequestForm.hpp"
 
-RobotomyRequestForm::RobotomyRequestForm() : _signed(0), _gradeToSign(72), _gradeToExecute(45), _target("default")
+RobotomyRequestForm::RobotomyRequestForm() : AForm("Default", 72, 45), _target("default")
 {
 
 }
 
-RobotomyRequestForm::RobotomyRequestForm(const std::string &target) : _signed(0), _gradeToSign(72), _gradeToExecute(45), _target(target)
+RobotomyRequestForm::RobotomyRequestForm(const std::string &target) : AForm("Default", 72, 45), _target(target)
 {
 
 }
 
-RobotomyRequestForm::RobotomyRequestForm(const RobotomyRequestForm &obj) : _signed(obj._signed), _gradeToSign(obj._gradeToSign), _gradeToExecute(obj._gradeToExecute), _target(obj._target)
+RobotomyRequestForm::RobotomyRequestForm(const RobotomyRequestForm &obj) : AForm(obj), _target(obj._target)
 {
-	*this = obj;
+	(void)obj;
+//	*this = obj;
 }
 
 RobotomyRequestForm &RobotomyRequestForm::operator=(const RobotomyRequestForm &obj)
 {
-	this->_signed = obj._signed;
+	this->setStatus(obj.getStatus());
+	this->_target = obj._target;
 	return *this;
 }
 
@@ -40,18 +42,26 @@ RobotomyRequestForm::~RobotomyRequestForm()
 
 void    RobotomyRequestForm::execute(Bureaucrat const &executor) const
 {
-	if (executor.getGrade() > this->_gradeToExecute)
+	if (executor.getGrade() > this->getToExecute())
 	{
-		std::cout << "Executor " << executor.getName() << "'s grade is not high enough to execute the form " << ((AForm *)this)->getName() << std::endl;
-		return ;
+		throw GradeTooLowException();
 	}
 	else if (((AForm *)this)->getStatus() == 0)
 	{
-		std::cout << "The form " << ((AForm *)this)->getName() << " has not been signed beforehand. Executor " << executor.getName() << " can not execute it." << std::endl;
-		return ;
+		throw NotSignedException();
 	}
+	std::cout << "* drilling noises *\nTrying a robotomy on the executor with a 50% chance of success" << std::endl;
 	std::srand(std::time(NULL));
 	int randomvalue = std::rand();
 	if (randomvalue % 2)
-		std::cout << "* BRRRRRRRRRRRRRRRRRRRRRRRRRRR *\n" << executor.getName() << " has been robotomized." << std::endl;
+		std::cout << executor.getName() << " has been robotomized." << std::endl;
+	else
+		std::cout << "Robotomy failed" << std::endl;
+}
+
+AForm *RobotomyRequestForm::spawnForm(const std::string &target)
+{
+	AForm *res = new RobotomyRequestForm(target);
+
+	return res;
 }

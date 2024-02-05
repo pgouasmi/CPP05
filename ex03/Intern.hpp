@@ -19,6 +19,18 @@
 
 class Intern
 {
+
+private:
+std::string _keys[3];
+
+//typedef void (AForm::*PtrFunction)();
+AForm *(Intern::*_FunctionArray[3])(const std::string &target);
+
+AForm	*spawnRobotomy(const std::string &target);
+AForm	*spawnShrubbery(const std::string &target);
+AForm	*spawnPardon(const std::string &target);
+
+
 public:
     Intern();
     Intern(const Intern &obj);
@@ -27,8 +39,15 @@ public:
 
     AForm *makeForm(std::string &name, std::string &target);
 
-private:
-    typedef void ()
+	class UnknownFormException : public std::exception
+	{
+	private:
+		std::string message;
+	public:
+		UnknownFormException() throw();
+		virtual ~UnknownFormException() throw() {}
+		virtual const char *what() const throw();
+	};
 
 };
 

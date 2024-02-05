@@ -1,38 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   AForm.cpp                                          :+:      :+:    :+:   */
+/*   AForm.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pgouasmi <pgouasmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/23 16:43:24 by pgouasmi          #+#    #+#             */
-/*   Updated: 2024/01/26 13:06:41 by pgouasmi         ###   ########.fr       */
+/*   Created: 2024/01/22 15:33:58 by pgouasmi          #+#    #+#             */
+/*   Updated: 2024/01/23 15:36:53 by pgouasmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "AForm.hpp"
+#include "ShrubberyCreationForm.hpp"
+#include "PresidentialPardonForm.hpp"
+#include "RobotomyRequestForm.hpp"
 
-AForm::AForm() : _name("default"), _gradeToSign(1), _gradeToExecute(1)
+AForm::AForm() : _name("Default"), _signed(false), _gradeToSign(1), _gradeToExecute(1) {}
+
+AForm::AForm(const std::string &name, int gradeToSign, int gradeToExecute) : _name(name), _signed(false), _gradeToSign(gradeToSign), _gradeToExecute(gradeToExecute)
 {
-
-}
-
-AForm::AForm(std::string name, int gradeToSign, int gradeToExecute) : _name(name), _gradeToSign(gradeToSign), _gradeToExecute(gradeToExecute)
-{
-	try
-	{
-		// this->_gradeToSign = gradeToSign;
-		// this->_gradeToExecute = gradeToExecute;
-		// this->_signed = 0;
-		if (gradeToSign > 150 || gradeToExecute > 150)
-			throw GradeTooLowException();
-		else if (gradeToSign < 1 || gradeToExecute < 1)
-			throw GradeTooHighException();
-	}
-	catch(const std::exception &e)
-	{
-		std::cerr << e.what() << std::endl;
-	}
+	if (gradeToSign > 150 || gradeToExecute > 150)
+		throw GradeTooLowException();
+	else if (gradeToSign < 1 || gradeToExecute < 1)
+		throw GradeTooHighException();
 }
 
 AForm::AForm(const AForm &obj) : _name(obj._name), _signed(obj._signed), _gradeToSign(obj._gradeToSign), _gradeToExecute(obj._gradeToExecute)
@@ -42,11 +32,7 @@ AForm::AForm(const AForm &obj) : _name(obj._name), _signed(obj._signed), _gradeT
 
 AForm &AForm::operator=(const AForm &obj)
 {
-	// this->_name = obj._name;
-	this->_signed = obj._signed;
-	// this->_gradeToSign = obj._gradeToSign;
-	// this->_gradeToExecute = obj._gradeToExecute;
-
+	(void) obj;
 	return *this;
 }
 
@@ -56,64 +42,69 @@ AForm::~AForm()
 }
 
 
-std::string	AForm::getName()
+std::string	AForm::getName() const
 {
 	return this->_name;
 }
 
-bool        AForm::getStatus()
+bool        AForm::getStatus() const
 {
 	return this->_signed;
 }
 
-int   AForm::getToSign()
+int   AForm::getToSign() const
 {
 	return this->_gradeToSign;
 }
 
-int	AForm::getToExecute()
+int	AForm::getToExecute() const
 {
 	return this->_gradeToExecute;
 }
 
-// void	AForm::beSigned(Bureaucrat &obj)
-// {
-// 	if (this->getStatus() == 1)
-// 	{
-// 		std::cerr << "AForm " << this->getName() << " has already been signed" << std::endl;
-// 		return ;
-// 	}
-// 	if (obj.getGrade() <= this->getToSign())
-// 		this->_signed = 1;
-// 	obj.signAForm(*this);
-// }
-
+void	AForm::setStatus(bool value)
+{
+	this->_signed = value;
+}
 
 void	AForm::beSigned(Bureaucrat &obj)
 {
-	try
-	{
-		// if (this->getStatus() == 1)
-		// {
-		// 	std::cerr << "AForm " << this->getName() << " has already been signed" << std::endl;
-		// 	return ;
-		// }
-		if (obj.getGrade() > this->getToSign())
-			throw GradeTooLowException();
-		else
-			this->_signed = 1;
-		obj.signForm(*this);
-	}
-	catch(const std::exception &e)
-	{
-		obj.signForm(*this);
-		std::cerr << e.what() << std::endl;
-	}
+	if (this->_signed)
+		throw AlreadySignedException();
+	if (obj.getGrade() > this->getToSign())
+		throw GradeTooLowException();
+	this->_signed = true;
+	std::cout << obj.getName() << " signed form " << this->_name << std::endl;
 }
+
+
+
+
+//AForm *AForm::spawnShrubbery(const std::string &target)
+//{
+//	AForm *res = new ShrubberyCreationForm(target);
+//
+//	return res;
+//}
+//
+//AForm *AForm::spawnRobotomy(const std::string &target)
+//{
+//	AForm *res = new RobotomyRequestForm(target);
+//
+//	return res;
+//}
+//
+//AForm *AForm::spawnPardon(const std::string &target)
+//{
+//	AForm *res = new PresidentialPardonForm(target);
+//
+//	return res;
+//}
+
 
 AForm::GradeTooHighException::GradeTooHighException() throw()
 {
-	this->message = "AForm exception : grade is too High";
+	this->message = "grade is too High";
 }
 
 const char *AForm::GradeTooHighException::what() const throw ()
@@ -123,13 +114,34 @@ const char *AForm::GradeTooHighException::what() const throw ()
 
 AForm::GradeTooLowException::GradeTooLowException() throw ()
 {
-	this->message = "AForm exception : Grade is too Low";
+	this->message = "Grade is too Low";
 }
 
 const char *AForm::GradeTooLowException::what() const throw ()
 {
 	return this->message.c_str();
 }
+
+AForm::NotSignedException::NotSignedException() throw ()
+{
+	this->message = "Form has not been signed";
+}
+
+const char *AForm::NotSignedException::what() const throw ()
+{
+	return this->message.c_str();
+}
+
+AForm::AlreadySignedException::AlreadySignedException() throw ()
+{
+	this->message = "Form has already been signed";
+}
+
+const char *AForm::AlreadySignedException::what() const throw ()
+{
+	return this->message.c_str();
+}
+
 
 std::ostream &operator<<(std::ostream &os, AForm &obj)
 {
@@ -143,3 +155,5 @@ std::ostream &operator<<(std::ostream &os, AForm &obj)
 
 	return os;
 }
+
+

@@ -12,50 +12,41 @@
 
 #include "Bureaucrat.hpp"
 #include "AForm.hpp"
-#include "PresidentialPardonForm.hpp"
-#include "RobotomyRequestForm.hpp"
-#include "ShrubberyCreationForm.hpp"
+//#include "PresidentialPardonForm.hpp"
+//#include "RobotomyRequestForm.hpp"
+//#include "ShrubberyCreationForm.hpp"
+#include "Intern.hpp"
 
 int main()
 {
-	std::string s = "Gertrude";
+	std::string s = "Anne";
+	std::string type = "shrubbery creation";
+	std::string target = "bruh";
+	AForm *S = NULL;
 
-	Bureaucrat *B = new Bureaucrat(std::string("Anne"), 1);
+	Intern *I = new Intern();
 
-	ShrubberyCreationForm *A = new ShrubberyCreationForm();
+	try
+	{
+		S = I->makeForm(type, target);
+	}
+	catch (std::exception &e)
+	{
+		std::cout << "Make Form failed because " << e.what() << std::endl;
+		delete I;
+		return 1;
 
-	A->beSigned(*B);
-	A->execute(*B);
+	}
+	Bureaucrat *B = new Bureaucrat(s, 100);
 
-	PresidentialPardonForm *P = new PresidentialPardonForm();
+	if (S) {
+		B->signForm(*S);
+		B->executeForm(*S);
+	}
 
-	P->beSigned(*B);
-	P->execute(*B);
+	delete I;
+	delete S;
+	delete B;
 
-	RobotomyRequestForm *R = new RobotomyRequestForm();
-
-	R->beSigned(*B);
-	R->execute(*B);
-
-
-
-
-	// Bureaucrat *A = new Bureaucrat(s, 4);
-	// Bureaucrat *B = new Bureaucrat(std::string("Anne"), 56);
-
-	// std::cout << *A << std::endl;
-	// std::cout << *B << std::endl;
-	// std::cout << std::endl;
-
-	// Form *C = new Form(std::string("2B"), 20, 60);
-
-	// std::cout << *C << std::endl;
-
-	// C->beSigned(*B);
-	// C->beSigned(*A);
-
-	// delete A;
-	// delete B;
-	// delete C;
-	// return 0;
+	return 0;
 }
