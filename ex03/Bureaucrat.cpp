@@ -18,10 +18,12 @@ Bureaucrat::Bureaucrat(std::string &name, int grade) : _name(name)
 {
 	if (grade < 1)
 	{
+		this->_grade = 150;
 		throw GradeTooHighException();
 	}
 	else if (grade > 150)
 	{
+		this->_grade = 150;
 		throw GradeTooLowException();
 	}
 	else
@@ -85,18 +87,6 @@ void	Bureaucrat::signForm(AForm &obj)
 	{
 		std::cout << this->_name << " could not sign Form " << obj.getName() << " because: " << e.what() << std::endl;
 	}
-//	if (obj.getStatus() == true)
-//	{
-//		std::cout << this->_name << " couldn't sign " << obj.getName() << " because " << std::flush;
-//		throw AlreadySignedException();
-//	}
-//	else if (this->_grade > obj.getToSign())
-//	{
-//		std::cout << this->_name << " couldn't sign " << obj.getName() << " because " << std::flush;
-//		throw GradeTooLowException();
-//	}
-//	else
-//		obj.beSigned(*this);
 }
 
 void	Bureaucrat::executeForm(const AForm &form)

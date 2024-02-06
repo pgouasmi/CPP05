@@ -18,10 +18,12 @@ Bureaucrat::Bureaucrat(std::string &name, int grade) : _name(name)
 {
 	if (grade < 1)
 	{
+		this->_grade = 150;
 		throw GradeTooHighException();
 	}
 	else if (grade > 150)
 	{
+		this->_grade = 150;
 		throw GradeTooLowException();
 	}
 	else

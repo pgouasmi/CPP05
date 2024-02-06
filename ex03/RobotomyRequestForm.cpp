@@ -58,10 +58,3 @@ void    RobotomyRequestForm::execute(Bureaucrat const &executor) const
 	else
 		std::cout << "Robotomy failed" << std::endl;
 }
-
-AForm *RobotomyRequestForm::spawnForm(const std::string &target)
-{
-	AForm *res = new RobotomyRequestForm(target);
-
-	return res;
-}

@@ -22,10 +22,9 @@ ShrubberyCreationForm::ShrubberyCreationForm(const std::string &target) : AForm(
 
 }
 
-ShrubberyCreationForm::ShrubberyCreationForm(const ShrubberyCreationForm &obj) : AForm(obj), _target(obj._target)//_signed(obj._signed), _gradeToSign(obj._gradeToSign), _gradeToExecute(obj._gradeToExecute), _target(obj._target)
+ShrubberyCreationForm::ShrubberyCreationForm(const ShrubberyCreationForm &obj) : AForm(obj), _target(obj._target)
 {
 	(void) obj;
-//	*this = obj;
 }
 
 ShrubberyCreationForm &ShrubberyCreationForm::operator=(const ShrubberyCreationForm &obj)
@@ -67,11 +66,4 @@ void    ShrubberyCreationForm::execute(Bureaucrat const &executor) const
 "         |  |\n"
 "         |  |\n"
 "  ______/____\\_\\___\n";
-}
-
-AForm *ShrubberyCreationForm::spawnForm(const std::string &target)
-{
-	AForm *res = new ShrubberyCreationForm(target);
-
-	return res;
 }

@@ -43,15 +43,7 @@ void    PresidentialPardonForm::execute(Bureaucrat const &executor) const
 	}
 	else if (this->getStatus() == 0)
 	{
-		std::cout << "The form " << this->getName() << " has not been signed beforehand. Executor " << executor.getName() << " can not execute it." << std::endl;
-		return ;
+		throw NotSignedException();
 	}
 	std::cout << this->_target << " has been pardoned by Zaphod Beeblebrox." << std::endl;
-}
-
-AForm *PresidentialPardonForm::spawnForm(const std::string &target)
-{
-	AForm *res = new PresidentialPardonForm(target);
-
-	return res;
 }
