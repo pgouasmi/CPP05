@@ -50,10 +50,10 @@ void    RobotomyRequestForm::execute(Bureaucrat const &executor) const
 	{
 		throw NotSignedException();
 	}
-	std::cout << "* drilling noises *\nTrying a robotomy on the executor with a 50% chance of success" << std::endl;
+	std::cout << "* drilling noises *\nTrying a robotomy on target " << this->_target << " with a 50% chance of success" << std::endl;
 	std::srand(std::time(NULL));
-	int randomvalue = std::rand();
-	if (randomvalue % 2)
+	int randomvalue = std::rand() % 2;
+	if (randomvalue == 1)
 		std::cout << this->_target << " has been robotomized." << std::endl;
 	else
 		std::cout << "Robotomy failed" << std::endl;

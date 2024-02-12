@@ -30,10 +30,10 @@ public:
     Form &operator=(const Form &obj);
     ~Form();
 
-    std::string getName();
-    bool        getStatus();
-    int         getToSign();
-    int         getToExecute();
+    std::string getName() const;
+    bool        getStatus() const;
+    int         getToSign() const;
+    int         getToExecute() const;
     void        beSigned(Bureaucrat &obj);
 
 private:

@@ -23,29 +23,16 @@ class ShrubberyCreationForm : public AForm
 {
 public:
     ShrubberyCreationForm();
-    ShrubberyCreationForm(const std::string &name);
+    ShrubberyCreationForm(const std::string &target);
     ShrubberyCreationForm(const ShrubberyCreationForm &obj);
     ShrubberyCreationForm &operator=(const ShrubberyCreationForm &obj);
     virtual~ShrubberyCreationForm();
 
     void    execute(Bureaucrat const &executor) const;
-    // void        beSigned(Bureaucrat &obj);
 
 
 private:
-//    const std::string _name;
-//    bool              _signed;
-//    const int         _gradeToSign;
-//    const int         _gradeToExecute;
 	std::string _target;
-
-    // std::string getName();
-    // bool        getStatus();
-    // int         getToSign();
-    // int         getToExecute();
-
-
-
 };
 
 #endif

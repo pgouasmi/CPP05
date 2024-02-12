@@ -15,6 +15,8 @@
 int main()
 {
 	std::string s = "Gertrude";
+	std::string s2 = "Anne";
+	std::string s3 = "Gerard";
 	Bureaucrat *A = NULL;
 	Bureaucrat *B = NULL;
 	Bureaucrat *C = NULL;
@@ -27,7 +29,7 @@ int main()
 		std::cout << e.what() << std::endl;
 	}
 	try {
-		B = new Bureaucrat(s, 150);
+		B = new Bureaucrat(s2, 150);
 	}
 	catch (std::exception &e)
 	{
@@ -43,7 +45,7 @@ int main()
 	std::cout << *B << std::endl;
 
 	try {
-		C = new Bureaucrat(s, 150);
+		C = new Bureaucrat(s3, 150);
 		C->decrementGrade();
 	}
 	catch (std::exception &e)

@@ -12,9 +12,6 @@
 
 #include "Bureaucrat.hpp"
 #include "AForm.hpp"
-//#include "PresidentialPardonForm.hpp"
-//#include "RobotomyRequestForm.hpp"
-//#include "ShrubberyCreationForm.hpp"
 #include "Intern.hpp"
 
 int main()
@@ -22,6 +19,7 @@ int main()
 	std::string s = "Anne";
 	std::string type = "robotomy request";
 	std::string target = "bruh";
+	std::string wrongtest = "KO";
 	AForm *S = NULL;
 
 	Intern *I = new Intern();
@@ -33,9 +31,6 @@ int main()
 	catch (std::exception &e)
 	{
 		std::cout << "Make Form failed because " << e.what() << std::endl;
-		delete I;
-		return 1;
-
 	}
 	Bureaucrat *B = new Bureaucrat(s, 1);
 

@@ -40,22 +40,22 @@ Form::~Form()
 }
 
 
-std::string	Form::getName()
+std::string	Form::getName() const
 {
 	return this->_name;
 }
 
-bool        Form::getStatus()
+bool        Form::getStatus() const
 {
 	return this->_signed;
 }
 
-int   Form::getToSign()
+int   Form::getToSign() const
 {
 	return this->_gradeToSign;
 }
 
-int	Form::getToExecute()
+int	Form::getToExecute() const
 {
 	return this->_gradeToExecute;
 }

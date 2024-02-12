@@ -52,7 +52,7 @@ std::ostream	&operator<<(std::ostream &os, Bureaucrat &obj)
 	return os;
 }
 
-const std::string	&Bureaucrat::getName()
+const std::string	&Bureaucrat::getName() const
 {
 	return this->_name;
 }

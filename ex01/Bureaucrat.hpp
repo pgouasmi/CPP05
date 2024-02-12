@@ -27,23 +27,15 @@ class Form;
 class Bureaucrat {
 public:
 	Bureaucrat();
-
 	Bureaucrat(std::string &name, int grade);
-
 	Bureaucrat(Bureaucrat const &obj);
-
 	Bureaucrat &operator=(Bureaucrat const &obj);
-
 	~Bureaucrat();
 
-	const std::string &getName();
-
+	const std::string &getName() const;
 	int getGrade() const;
-
 	void incrementGrade();
-
 	void decrementGrade();
-
 	void signForm(Form &obj);
 
 private:

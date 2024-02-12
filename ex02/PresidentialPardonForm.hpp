@@ -22,7 +22,7 @@ class PresidentialPardonForm : public AForm
 {
 public:
     PresidentialPardonForm();
-    PresidentialPardonForm(const std::string &name);
+    PresidentialPardonForm(const std::string &target);
     PresidentialPardonForm(const PresidentialPardonForm &obj);
     PresidentialPardonForm &operator=(const PresidentialPardonForm &obj);
     virtual ~PresidentialPardonForm();

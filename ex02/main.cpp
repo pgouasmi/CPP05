@@ -60,20 +60,19 @@ int main()
 		return 0;
 	}
 
-	S = new ShrubberyCreationForm();
-//	std::cout << *S << std::endl;
+	S = new ShrubberyCreationForm(std::string("Jennfifer_Lopez"));
 	B->signForm(*S);
 	B->executeForm(*S);
 
 	std::cout << std::endl;
 
-	P = new PresidentialPardonForm();
+	P = new PresidentialPardonForm(std::string("Aerith"));
 	B2->signForm(*P);
 	B2->executeForm(*P);
 
 	std::cout << std::endl;
 
-	R = new RobotomyRequestForm();
+	R = new RobotomyRequestForm(std::string("Crash Bandicoot"));
 	B3->signForm(*R);
 	B3->executeForm(*R);
 
@@ -86,44 +85,4 @@ int main()
 	delete S;
 	delete P;
 	delete R;
-
-//	ShrubberyCreationForm *A = new ShrubberyCreationForm();
-//
-//	B->signForm(*A);
-//	B->executeForm(*A);
-//
-//	std::cout << std::endl;
-//
-//	PresidentialPardonForm *P = new PresidentialPardonForm();
-////
-//	B->signForm(*P);
-//	B->executeForm(*P);
-////
-////	RobotomyRequestForm *R = new RobotomyRequestForm();
-////
-////	R->beSigned(*B);
-////	R->execute(*B);
-//
-//
-//
-//
-//		// Bureaucrat *A = new Bureaucrat(s, 4);
-//		// Bureaucrat *B = new Bureaucrat(std::string("Anne"), 56);
-//
-//		// std::cout << *A << std::endl;
-//		// std::cout << *B << std::endl;
-//		// std::cout << std::endl;
-//
-//		// Form *C = new Form(std::string("2B"), 20, 60);
-//
-//		// std::cout << *C << std::endl;
-//
-//		// C->beSigned(*B);
-//		// C->beSigned(*A);
-//
-//		delete A;
-//		delete B;
-//		delete P;
-////		delete R;
-//		return 0;
 }

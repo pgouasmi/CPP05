@@ -22,7 +22,7 @@ class RobotomyRequestForm : public AForm
 {
 public:
     RobotomyRequestForm();
-    RobotomyRequestForm(const std::string &name);
+    RobotomyRequestForm(const std::string &target);
     RobotomyRequestForm(const RobotomyRequestForm &obj);
     RobotomyRequestForm &operator=(const RobotomyRequestForm &obj);
     virtual ~RobotomyRequestForm();
